@@ -71,8 +71,8 @@ public class AddEventActivity extends FragmentActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
-
-
+        Intent currentIntent = getIntent();
+        Button dateButton = (Button) findViewById(R.id.buttonAddDate);
         this.dh = new DatabaseHandler(this);
         eventTypes = getResources().getStringArray(R.array.event_types);
         recurrenceTypes = getResources().getStringArray(R.array.recurrence_types);
@@ -84,12 +84,10 @@ public class AddEventActivity extends FragmentActivity implements AdapterView.On
 
 
         // set current date
-        Calendar c = Calendar.getInstance();
+        //Calendar c = Calendar.getInstance();
+
         // this give month number starting from 1
-        int month = c.get(Calendar.MONTH) + 1;
-        this.dateString = String.valueOf(c.get(Calendar.YEAR) + "-" + month + "-" + c.get(Calendar.DAY_OF_MONTH)+1);
-        this.timeString = String.valueOf(c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":00");
-        updateDateAndTime();
+
 
         /*
         * initialise spinners
@@ -132,7 +130,7 @@ public class AddEventActivity extends FragmentActivity implements AdapterView.On
 
 
         // date button action
-        Button dateButton = (Button) findViewById(R.id.buttonAddDate);
+
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,7 +165,7 @@ public class AddEventActivity extends FragmentActivity implements AdapterView.On
         * other floating action buttons other than addEvent button
         * they will launch the same activity with spinnerEventType disabled
         * */
-        Intent currentIntent = getIntent();
+
         final int eventTypeFromIntent;
         if ((eventTypeFromIntent = currentIntent.getIntExtra("eventType", 0)) != 0) {
             this.selectedEventType = this.eventTypes[eventTypeFromIntent];
@@ -177,6 +175,25 @@ public class AddEventActivity extends FragmentActivity implements AdapterView.On
             spinnerEventType.setEnabled(false);
 
         }
+
+        Date date=new Date();
+        long tim=currentIntent.getLongExtra("date",0);
+        if (tim != 0){
+            dateButton.setEnabled(false);
+            date.setTime(tim);
+            //c.setTimeInMillis(tim);
+
+            Log.d("date", date.toString());
+
+
+        }
+        DateFormat dateOnly = new SimpleDateFormat("yy-MM-dd", Locale.ENGLISH);
+        DateFormat timeOnly = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+
+        this.dateString = dateOnly.format(date);
+        this.timeString = timeOnly.format(date);
+        updateDateAndTime();
+
 
 
     }

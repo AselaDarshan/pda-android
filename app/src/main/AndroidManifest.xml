@@ -20,11 +20,13 @@
             android:name=".AddEventActivity"
             android:label="@string/title_activity_add_event" >
         </activity>
-
+        DialogViewEvents
         <activity
             android:name=".CalenderActivity"
             android:label="Calender" >
         </activity>
+
+
         <receiver android:name=".NotificationPublisher" />
     </application>
 

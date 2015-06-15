@@ -41,7 +41,7 @@ public class CalenderCustomAdapter extends CaldroidGridAdapter {
 		int rightPadding = cellView.getPaddingRight();
 
 		TextView tv1 = (TextView) cellView.findViewById(R.id.tv1);
-		TextView tv2 = (TextView) cellView.findViewById(R.id.tv2);
+		//TextView tv2 = (TextView) cellView.findViewById(R.id.tv2);
 
 		tv1.setTextColor(Color.BLACK);
 
